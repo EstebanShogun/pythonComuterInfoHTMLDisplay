@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Hello from Flask</title>
+	<script>
+		window.onload = function() {
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+				theme: "light2", // "light1", "light2", "dark1", "dark2"
+				exportEnabled: true,
+				animationEnabled: true,
+				title: {
+					text: "Utilisation de la RAM"
+				},
+				data: [{
+					type: "pie",
+					startAngle: 25,
+					toolTipContent: "<b>{label}</b>: {y}%",
+					showInLegend: "true",
+					legendText: "{label}",
+					indexLabelFontSize: 16,
+					indexLabel: "{label} - {y}%",
+					dataPoints: [
+					{ y: {{ ram }}, label: 'Ram utilisée ({{ ramNb }} ko)' },
+					{ y: {{ free }}, label: "Ram libre" }
+					]
+				}]
+			});
+			chart.render();
+		}
+	</script>
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+
+		th, td {
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even){background-color: #f2f2f2}
+
+		th {
+			background-color: #FFA250;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<h2>Computer info</h2>
+
+	<table>
+		<tr>
+			<th>Hostname</th>
+			<th>OS</th>
+			<th>USER</th>			
+		</tr>
+		<tr>
+			<td>{{hostname}}</td>
+			<td>{{os}}</td>
+			<td>{{user}}</td>
+		</tr>
+	</table>
+	<br>
+	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+	<script type='text/javascript' src='/canvas'></script>
+</body>
+</html>
