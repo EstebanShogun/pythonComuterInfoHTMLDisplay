@@ -3,12 +3,28 @@
 
 from flask import render_template, Flask
 import sys
+import requests
+import json
 
 app = Flask(__name__)
 
-@app.route('/hello/')
-def hello(ram=52, user="lul", os="lolux", hostname="oim"): 
-    return render_template('index.html',ram=ram, free=100-ram, ramNb=25662, hostname=hostname, os=os, user=user) 
+url = "http://127.0.0.1:5000"
+
+hostname = requests.get("%s/host/localhost" % url)
+os = requests.get("%s/os/localhost" % url)
+user = requests.get("%s/user/localhost" % url)
+percentRam = requests.get("%s/percentRam/localhost" % url)
+usedRam = requests.get("%s/usedRam/localhost" % url)
+
+
+for value in hostname.json(): hostname = value
+for value in os.json(): os = value
+for value in user.json(): user = value
+for value in percentRam.json(): percentRam = value
+for value in usedRam.json(): usedRam = value
+@app.route('/app')
+def hello(): 
+    return render_template('index.html',ram=percentRam, free=100-percentRam, ramNb=usedRam, hostname=hostname, os=os, user=user) 
 
 @app.route('/canvas/')
 def canvas(): 

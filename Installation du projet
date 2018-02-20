@@ -1,0 +1,4 @@
+ - importer le script SQL, nommer la base python pour ne pas avoir à changer le nom dans le code.
+ - renseigner dans api.py les informations concernant la base
+ - renseigner dans les deux autres fichiers (agent/application) l'URL de l'api
+ - De plus, l'application ne fonctionne actuellement que pour un seul PC, l'insert dans la base est opérationnel mais sur l'application, il manque un champ select pour pouvoir choisir l'host.
